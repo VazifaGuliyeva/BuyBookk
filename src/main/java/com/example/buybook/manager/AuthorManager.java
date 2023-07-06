@@ -1,40 +1,43 @@
 package com.example.buybook.manager;
 
 import com.example.buybook.entity.Author;
+import com.example.buybook.repository.AuthorRepository;
 import com.example.buybook.service.AuthorService;
+import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Component;
+import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
 import java.util.List;
-@Component //Spring proyektin beanlerini taniya bilsin
+//@Component-Component ve service demek olar eynidir,sadece service daha cox uygun gelir //Spring proyektin beanlerini taniya bilsin
+@Service
+@AllArgsConstructor
 public class AuthorManager implements AuthorService {
-    private static List<Author> list=new ArrayList<>();
 
-    static{
-        list.add(new Author(1,"Chingiz Abdullazade"));
-    }
+    private final AuthorRepository authorRepository;
 
+   /* public AuthorManager(AuthorRepository authorRepository) {
+        this.authorRepository = authorRepository;
+    }*/
 
 
     @Override
     public List<Author> getAll() {
-        return list;
+        return authorRepository.findAll();
     }
 
     @Override
     public Author getById(int id) {
-        return list.get(id-1);
+        return authorRepository.findById(id).get();
     }
 
     @Override
     public void addAuthor(Author author) {
-        list.add(author);
-
+        authorRepository.save(author);
     }
 
     @Override
     public void deleteAuthor(int id) {
-        list.remove(id-1);
+        authorRepository.deleteById(id);
 
     }
 }

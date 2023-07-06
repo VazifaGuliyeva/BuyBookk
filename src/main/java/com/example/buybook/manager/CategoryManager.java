@@ -1,36 +1,40 @@
 package com.example.buybook.manager;
 
 import com.example.buybook.entity.Category;
+import com.example.buybook.repository.CategoryRepository;
 import com.example.buybook.service.CategoryService;
+import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Component;
+import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.List;
-@Component
+//@Component
+@Service
+@AllArgsConstructor
 public class CategoryManager implements CategoryService {
-     private static List<Category> list=new ArrayList<>();
-
-     static{
-         list.add(new Category(1,"dram"));
-     }
+    private final CategoryRepository categoryRepository;
     @Override
     public List<Category> getAll() {
-        return list;
+
+        return categoryRepository.findAll();
     }
 
     @Override
     public Category getById(int id) {
-        return list.get(id-1);
+
+        return categoryRepository.findById(id).get();
     }
 
     @Override
     public void addCategory(Category category) {
-         list.add(category);
+
+        categoryRepository.save(category);
     }
 
     @Override
     public void deletecategory(int id) {
-         list.remove(id-1);
+         categoryRepository.deleteById(id);
 
     }
 }

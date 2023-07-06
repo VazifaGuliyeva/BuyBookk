@@ -1,38 +1,41 @@
 package com.example.buybook.manager;
 
 import com.example.buybook.entity.Product;
+import com.example.buybook.repository.ProductRepository;
 import com.example.buybook.service.ProductService;
+import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Component;
+import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.List;
-@Component
+//@Component
+@Service
+@AllArgsConstructor
 public class ProductManager implements ProductService {
 
-    private static List<Product> list=new ArrayList<>();
-
-    static {
-        list.add(new Product(1,"Parfiya",23.90));
-    }
+    private final ProductRepository productRepository;
     @Override
     public List<Product> getAll() {
-        return list;
+
+        return productRepository.findAll();
     }
 
     @Override
     public Product getById(int id) {
-        return list.get(id-1);
+
+        return productRepository.findById(id).get();
     }
 
     @Override
     public void addProduct(Product product) {
-        list.add(product);
+        productRepository.save(product);
 
     }
 
     @Override
     public void deleteProduct(int id) {
-        list.remove(id-1);
+        productRepository.deleteById(id);
 
     }
 }
