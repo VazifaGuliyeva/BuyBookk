@@ -1,5 +1,6 @@
 package com.example.buybook.controller;
 
+import com.example.buybook.dto.ProductDto;
 import com.example.buybook.entity.Product;
 import com.example.buybook.manager.ProductManager;
 import org.springframework.http.HttpStatus;
@@ -18,11 +19,11 @@ public class ProductController {
         this.productManager = productManager;
     }
     @GetMapping
-    public List<Product> getAll(){
+    public List<ProductDto> getAll(){
         return productManager.getAll();
     }
     @GetMapping("/{id}")
-    public Product getById(int id){
+    public ProductDto getById(int id){
         return productManager.getById(id);
     }
     @PostMapping

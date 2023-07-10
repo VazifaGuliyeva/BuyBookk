@@ -1,5 +1,6 @@
 package com.example.buybook.controller;
 
+import com.example.buybook.dto.PublishingHouseDto;
 import com.example.buybook.entity.PublishingHouse;
 import com.example.buybook.manager.PublishingHouseManager;
 import org.springframework.http.HttpStatus;
@@ -17,11 +18,11 @@ public class PublishingHouseController {
         this.publishingHouseManager = publishingHouseManager;
     }
     @GetMapping
-    public List<PublishingHouse> getAll(){
+    public List<PublishingHouseDto> getAll(){
         return publishingHouseManager.getAll();
     }
     @GetMapping("/{id}")
-    public PublishingHouse getById(@PathVariable int id){
+    public PublishingHouseDto getById(@PathVariable int id){
         return publishingHouseManager.getById(id);
     }
     @PostMapping

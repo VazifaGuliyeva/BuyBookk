@@ -1,5 +1,7 @@
 package com.example.buybook.manager;
 
+import com.example.buybook.dto.CategoryDto;
+import com.example.buybook.dto.CategoryDtoManager;
 import com.example.buybook.entity.Category;
 import com.example.buybook.repository.CategoryRepository;
 import com.example.buybook.service.CategoryService;
@@ -14,16 +16,22 @@ import java.util.List;
 @AllArgsConstructor
 public class CategoryManager implements CategoryService {
     private final CategoryRepository categoryRepository;
-    @Override
-    public List<Category> getAll() {
 
-        return categoryRepository.findAll();
+    private final CategoryDtoManager categoryDtoManager;
+    @Override
+    public List<CategoryDto> getAll() {
+
+     //   return categoryRepository.findAll().stream().map(category -> new CategoryDto(category.getCategoryName())).toList();
+
+        return categoryRepository.findAll().stream().map(categoryDtoManager).toList();
     }
 
     @Override
-    public Category getById(int id) {
+    public CategoryDto getById(int id) {
 
-        return categoryRepository.findById(id).get();
+        //return categoryRepository.findById(id).stream().map(category -> new CategoryDto(category.getCategoryName())).findFirst().get();
+        return categoryRepository.findById(id).stream().map(categoryDtoManager).findFirst().get();
+
     }
 
     @Override

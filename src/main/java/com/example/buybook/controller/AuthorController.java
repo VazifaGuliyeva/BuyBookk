@@ -1,5 +1,6 @@
 package com.example.buybook.controller;
 
+import com.example.buybook.dto.AuthorDto;
 import com.example.buybook.entity.Author;
 import com.example.buybook.manager.AuthorManager;
 import org.springframework.http.HttpStatus;
@@ -18,11 +19,11 @@ public class AuthorController {
     }
 
     @GetMapping
-    public List<Author> getAll(){
+    public List<AuthorDto> getAll(){
         return authorManager.getAll();
     }
     @GetMapping("/{id}")
-    public Author getById(@PathVariable int id){
+    public AuthorDto getById(@PathVariable int id){
         return authorManager.getById(id);
     }
     @PostMapping

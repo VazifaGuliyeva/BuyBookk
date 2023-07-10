@@ -1,5 +1,7 @@
 package com.example.buybook.manager;
 
+import com.example.buybook.dto.ProductDto;
+import com.example.buybook.dto.ProductDtoManager;
 import com.example.buybook.entity.Product;
 import com.example.buybook.repository.ProductRepository;
 import com.example.buybook.service.ProductService;
@@ -15,16 +17,18 @@ import java.util.List;
 public class ProductManager implements ProductService {
 
     private final ProductRepository productRepository;
-    @Override
-    public List<Product> getAll() {
 
-        return productRepository.findAll();
+    private final ProductDtoManager productDtoManager;
+    @Override
+    public List<ProductDto> getAll() {
+
+        return productRepository.findAll().stream().map(productDtoManager).toList();
     }
 
     @Override
-    public Product getById(int id) {
+    public ProductDto getById(int id) {
 
-        return productRepository.findById(id).get();
+        return productRepository.findById(id).stream().map(productDtoManager).findFirst().get();
     }
 
     @Override

@@ -1,6 +1,7 @@
 package com.example.buybook.controller;
 
 
+import com.example.buybook.dto.CategoryDto;
 import com.example.buybook.entity.Category;
 import com.example.buybook.manager.CategoryManager;
 import org.springframework.http.HttpStatus;
@@ -19,12 +20,12 @@ public class CategoryController {
         this.categoryManager = categoryManager;
     }
     @GetMapping
-    public List<Category> getAll(){
+    public List<CategoryDto> getAll(){
         return categoryManager.getAll();
 
     }
     @GetMapping("/{id}")
-    public Category getById(@PathVariable int id){
+    public CategoryDto getById(@PathVariable int id){
         return categoryManager.getById(id);
     }
     @PostMapping

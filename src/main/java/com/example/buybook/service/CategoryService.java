@@ -1,14 +1,15 @@
 package com.example.buybook.service;
 
+import com.example.buybook.dto.CategoryDto;
 import com.example.buybook.entity.Category;
 
 import java.util.List;
 
 public interface CategoryService {
 
-    List<Category> getAll();
+    List<CategoryDto> getAll();
 
-    Category getById(int id);
+    CategoryDto getById(int id);
 
     void addCategory(Category category);
 

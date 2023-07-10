@@ -1,14 +1,15 @@
 package com.example.buybook.service;
 
+import com.example.buybook.dto.AuthorDto;
 import com.example.buybook.entity.Author;
 
 import java.util.List;
 
 public interface AuthorService {
 
-    List<Author> getAll();
+    List<AuthorDto> getAll();
 
-    Author getById(int id);
+    AuthorDto getById(int id);
 
     void addAuthor(Author author);
 

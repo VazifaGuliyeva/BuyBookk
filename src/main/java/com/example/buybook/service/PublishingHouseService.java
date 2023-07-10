@@ -1,14 +1,15 @@
 package com.example.buybook.service;
 
+import com.example.buybook.dto.PublishingHouseDto;
 import com.example.buybook.entity.PublishingHouse;
 
 import java.util.List;
 
 public interface PublishingHouseService {
 
-    List<PublishingHouse> getAll();
+    List<PublishingHouseDto> getAll();
 
-    PublishingHouse getById(int id);
+    PublishingHouseDto getById(int id);
 
     void addPublishingHouse(PublishingHouse publishingHouse);
 
