@@ -11,7 +11,7 @@ public interface AuthorService {
 
     AuthorDto getById(int id);
 
-    void addAuthor(Author author);
+    void addAuthor(AuthorDto authorDto);
 
     void deleteAuthor(int id);
 }

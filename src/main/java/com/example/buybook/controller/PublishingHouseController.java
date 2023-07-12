@@ -27,8 +27,8 @@ public class PublishingHouseController {
     }
     @PostMapping
     @ResponseStatus(code= HttpStatus.CREATED)
-    public void addPublishingHouse(@RequestBody PublishingHouse publishingHouse){
-        publishingHouseManager.addPublishingHouse(publishingHouse);
+    public void addPublishingHouse(@RequestBody PublishingHouseDto publishingHouseDto){
+        publishingHouseManager.addPublishingHouse(publishingHouseDto);
     }
     @DeleteMapping("/{id}")
     public void deletePublishingHouses(@PathVariable int id){

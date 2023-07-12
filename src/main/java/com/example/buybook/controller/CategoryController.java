@@ -30,8 +30,8 @@ public class CategoryController {
     }
     @PostMapping
     @ResponseStatus(code= HttpStatus.CREATED)
-    public void addCategory(@RequestBody Category category){
-        categoryManager.addCategory(category);
+    public void addCategory(@RequestBody CategoryDto categoryDto){
+        categoryManager.addCategory(categoryDto);
     }
     @DeleteMapping("/{id}")
     public void deleteCategory(@PathVariable int id){

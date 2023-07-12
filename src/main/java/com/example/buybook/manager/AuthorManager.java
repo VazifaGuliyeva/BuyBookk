@@ -3,6 +3,8 @@ package com.example.buybook.manager;
 import com.example.buybook.dto.AuthorDto;
 import com.example.buybook.dto.AuthorDtoManager;
 import com.example.buybook.entity.Author;
+import com.example.buybook.exception.AuthorNotFoundException;
+import com.example.buybook.mapper.AuthorMapper;
 import com.example.buybook.repository.AuthorRepository;
 import com.example.buybook.service.AuthorService;
 import lombok.AllArgsConstructor;
@@ -22,20 +24,26 @@ public class AuthorManager implements AuthorService {
     }*/
     private final AuthorDtoManager authorDtoManager;
 
+    private final AuthorMapper authorMapper;
+
 
     @Override
     public List<AuthorDto> getAll() {
-        return authorRepository.findAll().stream().map(authorDtoManager).toList();
+        return authorRepository.findAll().stream().
+                map(authorMapper::toAuthorDto).toList(); //===map(author ->authorMapper.toAuthorDto(author)).toList();
     }
 
     @Override
     public AuthorDto getById(int id) {
-        return authorRepository.findById(id).stream().map(authorDtoManager).findFirst().get();
+        return authorRepository.findById(id).stream().
+                map(authorMapper::toAuthorDto).
+                findFirst().orElseThrow(()-> new AuthorNotFoundException("Author tapilmadi"));
     }
 
     @Override
-    public void addAuthor(Author author) {
-        authorRepository.save(author);
+    public void addAuthor(AuthorDto authorDto) {
+
+        authorRepository.save(authorMapper.toAuthorEntity(authorDto));
     }
 
     @Override

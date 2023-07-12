@@ -28,8 +28,8 @@ public class AuthorController {
     }
     @PostMapping
     @ResponseStatus(code= HttpStatus.CREATED)
-    public void addAuthor(@RequestBody Author author){
-        authorManager.addAuthor(author);
+    public void addAuthor(@RequestBody AuthorDto authorDto){
+        authorManager.addAuthor(authorDto);
     }
     @DeleteMapping("/{id}")
     public void deleteAuthor(@PathVariable int id){

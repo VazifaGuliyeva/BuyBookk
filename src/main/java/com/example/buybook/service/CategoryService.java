@@ -11,7 +11,7 @@ public interface CategoryService {
 
     CategoryDto getById(int id);
 
-    void addCategory(Category category);
+    void addCategory(CategoryDto categoryDto);
 
     void deletecategory(int id);
 }

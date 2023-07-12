@@ -28,8 +28,8 @@ public class ProductController {
     }
     @PostMapping
     @ResponseStatus(code= HttpStatus.CREATED)
-    public void addProduct(@RequestBody Product product){
-        productManager.addProduct(product);
+    public void addProduct(@RequestBody ProductDto productDto){
+        productManager.addProduct(productDto);
     }
     @DeleteMapping("/{id}")
     public void deleteProduct(@PathVariable int id){

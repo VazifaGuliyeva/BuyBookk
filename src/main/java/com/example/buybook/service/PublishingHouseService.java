@@ -11,7 +11,7 @@ public interface PublishingHouseService {
 
     PublishingHouseDto getById(int id);
 
-    void addPublishingHouse(PublishingHouse publishingHouse);
+    void addPublishingHouse(PublishingHouseDto publishingHouseDto);
 
     void deletePublishingHouse(int id);
 }
