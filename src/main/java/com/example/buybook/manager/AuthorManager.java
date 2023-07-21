@@ -2,12 +2,15 @@ package com.example.buybook.manager;
 
 import com.example.buybook.dto.AuthorDto;
 import com.example.buybook.dto.AuthorDtoManager;
+import com.example.buybook.dto.AuthorPageResponse;
 import com.example.buybook.entity.Author;
 import com.example.buybook.exception.AuthorNotFoundException;
 import com.example.buybook.mapper.AuthorMapper;
 import com.example.buybook.repository.AuthorRepository;
 import com.example.buybook.service.AuthorService;
 import lombok.AllArgsConstructor;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Service;
 
@@ -28,9 +31,17 @@ public class AuthorManager implements AuthorService {
 
 
     @Override
-    public List<AuthorDto> getAll() {
-        return authorRepository.findAll().stream().
-                map(authorMapper::toAuthorDto).toList(); //===map(author ->authorMapper.toAuthorDto(author)).toList();
+    public AuthorPageResponse getAll(int page, int count) {
+      //  public List<AuthorDto> getAll(int page,int count) {
+
+        Page<Author> authorPage=authorRepository.findAll(PageRequest.of(page,count));
+
+        return new AuthorPageResponse(
+                authorPage.getContent().stream().map(authorMapper::toAuthorDto).toList(),
+                authorPage.getTotalElements(),
+                authorPage.getTotalPages(),
+                authorPage.hasNext()
+        );
     }
 
     @Override

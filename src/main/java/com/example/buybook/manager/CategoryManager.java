@@ -2,12 +2,15 @@ package com.example.buybook.manager;
 
 import com.example.buybook.dto.CategoryDto;
 import com.example.buybook.dto.CategoryDtoManager;
+import com.example.buybook.dto.CategoryPageResponse;
 import com.example.buybook.entity.Category;
 import com.example.buybook.exception.CategoryNotFoundException;
 import com.example.buybook.mapper.CategoryMapper;
 import com.example.buybook.repository.CategoryRepository;
 import com.example.buybook.service.CategoryService;
 import lombok.AllArgsConstructor;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Service;
 
@@ -23,12 +26,18 @@ public class CategoryManager implements CategoryService {
 
     private final CategoryMapper categoryMapper;
     @Override
-    public List<CategoryDto> getAll() {
+    public CategoryPageResponse getAll(int page,int count) {
 
      //   return categoryRepository.findAll().stream().map(category -> new CategoryDto(category.getCategoryName())).toList();
 
-        return categoryRepository.findAll().stream().
-                map(categoryMapper::toCategoryDto).toList();
+        Page<Category> categoryPage=categoryRepository.findAll(PageRequest.of(page,count));
+
+        return new CategoryPageResponse(
+                categoryPage.getContent().stream().map(categoryMapper::toCategoryDto).toList(),
+                categoryPage.getTotalElements(),
+                categoryPage.getTotalPages(),
+                categoryPage.hasNext()
+        );
     }
 
     @Override

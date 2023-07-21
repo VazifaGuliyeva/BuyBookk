@@ -2,12 +2,15 @@ package com.example.buybook.manager;
 
 import com.example.buybook.dto.PublishingHouseDto;
 import com.example.buybook.dto.PublishingHouseDtoManager;
+import com.example.buybook.dto.PublishingHousePageResponse;
 import com.example.buybook.entity.PublishingHouse;
 import com.example.buybook.exception.PublishingHouseNotFoundException;
 import com.example.buybook.mapper.PublishingHouseMapper;
 import com.example.buybook.repository.PublishingHouseRepository;
 import com.example.buybook.service.PublishingHouseService;
 import lombok.AllArgsConstructor;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Service;
 
@@ -23,10 +26,16 @@ public class PublishingHouseManager implements PublishingHouseService{
 
     private final PublishingHouseMapper publishingHouseMapper;
     @Override
-    public List<PublishingHouseDto> getAll() {
+    public PublishingHousePageResponse getAll(int page,int count) {
 
-        return publishingHouseRepository.findAll().stream().
-                map(publishingHouseMapper::topublishingHouseDto).toList();
+        Page<PublishingHouse> publishingHousePage=publishingHouseRepository.findAll(PageRequest.of(page,count));
+
+        return new PublishingHousePageResponse(
+                publishingHousePage.getContent().stream().map(publishingHouseMapper::topublishingHouseDto).toList(),
+                publishingHousePage.getTotalElements(),
+                publishingHousePage.getTotalPages(),
+                publishingHousePage.hasNext()
+        );
     }
 
     @Override
